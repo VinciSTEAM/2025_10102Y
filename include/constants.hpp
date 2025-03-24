@@ -33,4 +33,4 @@ constexpr double DIST_THRESHOLD = 55;
 
 constexpr bool AUTO_STARTED = true;
 
-constexpr bool RUN_SKILLS = false;
+constexpr bool RUN_SKILLS = true; //this is the cause of all our problems!!!

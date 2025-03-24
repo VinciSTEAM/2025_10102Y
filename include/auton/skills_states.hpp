@@ -1,160 +1,163 @@
 #pragma once
 #include "components.hpp"
 
-void skills_states() {
+void state_skills() {
+//59 Skills route
     conveyor.setInitColor(ConveyorNamespace::Color::RED);
-    chassis.setPose(-62.25, 0, 90);
-
+    chassis.setPose(-62, 0, 90);
     conveyor.moveToState(ConveyorNamespace::State::FORWARDS);
-
     pros::delay(300);
-    chassis.moveToPoint(-50, 0, 700, {}, false);
+    chassis.moveDistance(14, 600, {.maxSpeed = 127}, false);
+    chassis.turnToHeading(180, 900, {.maxSpeed = 90}, false);
+    chassis.moveDistance(-24, 1000, {.forwards = false,.maxSpeed = 65}, false); 
+    chassis.waitUntil(20);
+    holder.moveToState(HolderNamespace::State::HOLD);
+    pros::delay(100);
+    chassis.turnToPoint(-24, -24, 700, {.maxSpeed = 100}, false);
+    chassis.moveToPoint(-24, -24, 1000, {}, false);
+    chassis.moveToPoint(24, -48, 1500, {.maxSpeed = 100}, true);
+    chassis.waitUntil(20);
+    arm.moveToState(ArmNamespace::State::WAIT);
+    chassis.waitUntilDone();
+    chassis.moveDistance(-24, 1000, {.forwards = false}, false);
     chassis.turnToHeading(0, 800, {}, false);
-    chassis.moveDistance(-24, 1000, {.forwards = false, .maxSpeed = 80}, true);
-    chassis.waitUntil(20);
-    holder.moveToState(HolderNamespace::State::HOLD);
-    pros::delay(80);
-    chassis.turnToPoint(-24, -24, 700, {.maxSpeed = 80}, false);
-    chassis.moveToPoint(-27, -24, 800, {}, false);
-    
-   
-    chassis.moveToPoint(25, -48.5, 1800, {.maxSpeed = 100}, true);
-    chassis.waitUntil(20);
-    arm.moveToState(ArmNamespace::State::WAIT);
-    chassis.waitUntilDone();
-    
-    chassis.moveToPoint(4, -40, 1000, {.forwards = false, .maxSpeed = 90}, false);
-    
-    chassis.turnToHeading(180, 800, {}, false);
-    
-    
-    chassis.moveDistance(25, 1000, {.maxSpeed = 80}, false);
-    
+    chassis.moveDistance(30, 800, {.maxSpeed = 80}, true);
+    chassis.waitUntil(5);
     conveyor.moveToState(ConveyorNamespace::State::STOP);
-
-    arm.moveToState(ArmNamespace::State::UP, 300);
-    pros::delay(300);
-   
-
-    chassis.moveDistance(-10, 600, {.forwards = false}, false);
+//First Wall State
+    chassis.waitUntil(17);
+    arm.moveToState(ArmNamespace::State::SCORE_UP);//SCORE_UP
     chassis.waitUntilDone();
-    arm.moveToState(ArmNamespace::State::DOWN, 500);
+    conveyor.moveToState(ConveyorNamespace::State::FORWARDS);
+    chassis.moveDistance(-15, 800, {.forwards = false}, false);
     chassis.turnToHeading(270, 800, {}, false);
-
-    conveyor.moveToState(ConveyorNamespace::State::FORWARDS);
-    
-    chassis.moveToPoint(-57,- 48, 1500, {.maxSpeed = 85}, false);
-    chassis.correctAt270({"forward"});
-    chassis.turnToHeading(150, 700, {}, false);
-    chassis.moveDistance(15,700, {}, false);
+    chassis.correctAt270({ "left"});
+    chassis.moveDistance(58, 1500, {.maxSpeed = 80}, false);
+    chassis.correctAt270({ "front"});
+    chassis.turnToPoint(-48, 60, 600, {}, false);
+    chassis.moveToPoint(-48, 60, 800, {}, false);
     chassis.turnToHeading(90, 800, {}, false);
-    chassis.correctAt90({"right"});
-    chassis.moveDistance(-13, 800, {.forwards = false, .maxSpeed = 80}, false);
 
+//First Mogo Drop
     holder.moveToState(HolderNamespace::State::RELEASE);
-
-    conveyor.moveToState(ConveyorNamespace::State::INTAKE_FORWARD);
-    
-    //first half
-
-    chassis.moveToPoint(39.5,-48, 2000, {}, false);
-    chassis.turnToHeading(90, 600, {}, false);
-    chassis.correctAt90({"front", "right"});
-    chassis.turnToPoint(60, -24, 700, {.forwards = false}, false);
-    chassis.moveToPoint(60, -24, 1200, {.forwards = false, .maxSpeed = 60}, true);
-    chassis.waitUntil(27);
+    arm.moveToState(ArmNamespace::State::DOWN, 500);
+    chassis.moveDistance(-10, 1000, {.forwards = false, .maxSpeed = 100.}, false);
+    chassis.moveToPoint(-48, 48, 1200, {.maxSpeed = 100}, false);
+    chassis.turnToHeading(180, 800, {}, false);
+    chassis.correctAt180({"front", "right"});
+    chassis.moveToPose(-48, 7, 0, 2200, {.forwards = false, .maxSpeed = 120});
+    chassis.correctAt180({"right"});
+    chassis.moveToPoint(-48, 24, 1100, {.forwards = false, .maxSpeed = 65});
+    chassis.waitUntil(13);
     holder.moveToState(HolderNamespace::State::HOLD);
-    pros::delay(150);
-    chassis.turnToPoint(66,-58, 1000, {.forwards = false}, false);
-    holder.moveToState(HolderNamespace::State::RELEASE);
-    chassis.moveDistance(-33, 1000, {.forwards = false}, false);
-    chassis.moveToPoint(48, -48, 1000, {}, false);
+    pros::delay(100);
+    chassis.turnToPoint(-24, 24, 700, {.maxSpeed = 100}, false);
+    chassis.moveToPoint(-24, 24, 1000, {}, false);
+    chassis.moveToPoint(24, 48, 1600, {.maxSpeed = 80}, true);
+    chassis.waitUntil(20);
     arm.moveToState(ArmNamespace::State::WAIT);
-    conveyor.moveToState(ConveyorNamespace::State::FORWARDS);
-    chassis.turnToHeading(180, 700, {}, false);
-    chassis.correctAt180({"front", "left"});
-    chassis.moveToPoint(48, 3, 1600, {.forwards = false, .maxSpeed = 70}, true);
-    chassis.waitUntil(25);
-    holder.moveToState(HolderNamespace::State::HOLD);
-    
-    chassis.turnToHeading(180, 600,{}, false);
-    chassis.correctAt180({"left"});
-    chassis.turnToPoint(70, 0, 1000, {}, false);
-    chassis.moveToPoint(52, 0, 1000, {}, false);
-    chassis.turnToHeading(90, 1000, {}, false);
-
+    chassis.waitUntilDone();
+    chassis.moveDistance(-24, 1000, {.forwards = false}, false);
+    chassis.turnToHeading(0, 800, {}, false);
+    chassis.moveDistance(30, 800, {.maxSpeed = 80}, true);
+    chassis.waitUntil(5);
     conveyor.moveToState(ConveyorNamespace::State::STOP);
-    arm.moveToState(ArmNamespace::State::UP, 300);
-    pros::delay(300);
-    arm.moveToState(ArmNamespace::State::DOWN);
-    
+    chassis.waitUntil(15);
+
+//Second Wall stake
+    arm.moveToState(ArmNamespace::State::SCORE_UP);//SCORE_UP
+    chassis.waitUntilDone();
+    chassis.moveDistance(-10, 1000, {.forwards = false}, false);
+    chassis.turnToHeading(270, 800, {}, false);
+    chassis.correctAt270({ "right"});
     conveyor.moveToState(ConveyorNamespace::State::FORWARDS);
-    chassis.turnToPoint(24, -24, 1000,{}, false);
-    chassis.moveToPoint(24, -24, 1000, {}, false);
+    chassis.moveDistance(58, 1500, {.maxSpeed = 80}, false);
+    chassis.correctAt270({ "front"});
+    chassis.turnToPoint(-48, 60, 600, {}, false);
+    chassis.moveToPoint(-48, 60, 800, {}, false);
+    chassis.turnToHeading(90, 800, {}, false);
 
-    
-    // chassis.turnToPoint(65,-26, 700, {.forwards = false},false);
-    
-    // chassis.moveDistance(-36, 1200, {.forwards = false, .maxSpeed = 80}, true);
-    // chassis.waitUntil(28);
-    // holder.moveToState(HolderNamespace::State::HOLD);
-   
+//Second Mogo drop
+    holder.moveToState(HolderNamespace::State::RELEASE);
+    chassis.moveDistance(-15, 800, {.forwards = false, .maxSpeed = 80.}, false);
+    chassis.moveToPoint(-48, 48, 1000, {.maxSpeed = 127}, false);
+    arm.moveToState(ArmNamespace::State::DOWN);
+    chassis.turnToHeading(90, 800, {.maxSpeed = 100}, false);
+    chassis.waitUntilDone();
+    chassis.correctAt90({"left"});
+    conveyor.moveToState(ConveyorNamespace::State::FORWARDS);
+    chassis.moveToPoint(48, 48, 2200, {.maxSpeed = 100}, true);
+    chassis.waitUntil(40);
+    arm.moveToState(ArmNamespace::State::WAIT);
+    chassis.waitUntil(60);
+    doinker.moveToState(HolderNamespace::State::HOLD);
+    chassis.waitUntilDone();
+    chassis.turnToHeading(90, 800, {}, false);
+    chassis.correctAt90({"front", "left"});
+    chassis.turnToPoint(60, 24, 800, {.forwards = false, .maxSpeed = 100}, false);
+    chassis.moveToPoint(60, 24, 1000, {.forwards = false, .maxSpeed = 65}, true);
+    chassis.waitUntil(20);
+    holder.moveToState(HolderNamespace::State::HOLD);
+    conveyor.moveToState(ConveyorNamespace::State::STOP);
+    doinker.moveToState(HolderNamespace::State::RELEASE);
+    chassis.waitUntilDone();
+    chassis.turnToHeading(100, 700, {}, false);
+    chassis.moveDistance(-30, 1000, {.forwards = false, .maxSpeed = 100}, true);
+    chassis.waitUntil(10);
 
-    // chassis.turnToHeading(335, 1000, {}, false);
-    // holder.moveToState(HolderNamespace::State::RELEASE);
-    // chassis.moveDistance(-34, 1000, {.forwards = false}, false);
-
-    // chassis.correctAt0({"right"});
-
-    // chassis.moveDistance(48, 1000, {}, false);
-
-    // arm.moveToState(ArmNamespace::State::WAIT);
-    // conveyor.moveToState(ConveyorNamespace::State::FORWARDS);
-
-    // chassis.turnToHeading(180, 1000, {}, false);
-    // chassis.correctAt180({"left"});
-    // chassis.moveToPoint(48, 0, 1000, {.forwards = false, .maxSpeed = 80}, true);
-    // chassis.waitUntil(15);
-    // holder.moveToState(HolderNamespace::State::HOLD);
-    // chassis.turnToHeading(90, 1000, {}, false);
-    // chassis.moveDistance(24, 1000, {.maxSpeed = 60}, false);
-    // chassis.moveDistance( -20, 1000, {.forwards = false, .maxSpeed = 60}, false);
-    // chassis.moveDistance(12, 1000, {.maxSpeed = 60}, false);
-
-    //second part
-    
-    // arm.moveToState(ArmNamespace::State::UP);
-    // chassis.moveDistance(-10, 1000, {}, false);
-    // arm.moveToState(ArmNamespace::State::DOWN);
-    
-    // chassis.turnToHeading(180, 1000, {}, false);
-    // chassis.moveToPoint(48, 0, 1000, {.forwards = false}, false);
-    // holder.moveToState(HolderNamespace::State::HOLD);
-    
-
-    // chassis.turnAndMoveToPoint(24, -24, 1000, {},false); 
-    // chassis.turnToPoint(0, 0, 1000, {}, false);
-    // chassis.waitUntilDone();
-
-    // chassis.moveToPoint(-48, -48, 1000, {}, false);
-    
-
-    // chassis.turnAndMoveToPoint(- 48,-60, 1000, {}, false);
-
-    // chassis.turnAndMoveToPoint(- 60, -48, 1000, {}, false);
-
-    // chassis.turnToHeading(90, 1000, {}, false);
-
-    // holder.moveToState(HolderNamespace::State::HOLD);
-
-    // chassis.moveDistance(-10, 1000, {.forwards = false}, false);
-
-    // arm.moveToState(ArmNamespace::State::WAIT);
-
-    
+//Third Mogo Drop
+    holder.moveToState(HolderNamespace::State::RELEASE);
+    chassis.waitUntilDone();
+    chassis.moveToPoint(48, 48, 1000, {.maxSpeed = 120}, false);
+    conveyor.moveToState(ConveyorNamespace::State::FORWARDS);
+    chassis.turnToHeading(0, 800, {.maxSpeed = 100}, false); 
+    chassis.correctAt0({"front", "right"});
+    chassis.moveToPose(48, 24, 0, 1200, {.forwards = false, .maxSpeed = 100}, false);
+    chassis.moveDistance(-24, 1000, {.forwards = false, .maxSpeed = 65}, true);
+    chassis.waitUntil(19);
+    holder.moveToState(HolderNamespace::State::HOLD);
+    pros::delay(100);
+    chassis.waitUntilDone();
+    chassis.turnToHeading(90, 800, {}, false);
+    conveyor.moveToState(ConveyorNamespace::State::STOP);
 
 
+//Alliance stake
+    chassis.moveDistance(7.5, 900, {.maxSpeed = 65}, true);
+    chassis.waitUntil(4);
+    arm.moveToState(ArmNamespace::State::UP);
+    chassis.waitUntilDone();
+    chassis.moveDistance(-7.5, 500, {.forwards = false}, false);
+    chassis.turnToPoint(24, 24, 700, {}, false);
+    arm.moveToState(ArmNamespace::State::DOWN);
+    chassis.moveDistance(24, 900, {}, false);
+    chassis.turnToHeading(45, 700, {}, false);
+    chassis.moveDistance(24, 800, {}, true);
+    chassis.waitUntil(20);
+    conveyor.moveToState(ConveyorNamespace::State::FORWARDS, 500);
+    chassis.waitUntilDone();
+    chassis.turnToHeading(-45, 700, {}, false);
+    chassis.moveDistance(48, 1300, {}, true);
+    chassis.waitUntil(36);
+    conveyor.moveToState(ConveyorNamespace::State::FORWARDS);
+    chassis.waitUntilDone();
+    chassis.turnToHeading(90, 800, {}, false);
+    chassis.moveDistance(15, 500, {}, false);
+    chassis.correctAt90({"front", "right"});
+    chassis.turnToHeading(30, 800, {}, false);
+    chassis.moveDistance(15, 500, {}, false);
+    chassis.turnToHeading(135, 500,{}, false);
 
+//Forth mogo drop
+    holder.moveToState(HolderNamespace::State::RELEASE);
+    chassis.moveDistance(-15, 500, {.forwards = false}, false);
+    chassis.moveDistance(30, 600, {}, true);
+    chassis.waitUntil(20);
+    arm.moveToState(ArmNamespace::State::SCORE_UP);//Score UP
+    chassis.waitUntilDone();
+    chassis.turnToHeading(135, 600, {}, false);
 
+//Hanging
+    chassis.moveDistance(-35, 1200, {.forwards = false, .maxSpeed = 70}, false);
 
 }
